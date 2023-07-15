@@ -1,0 +1,38 @@
+/* App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+input, button {
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.room-list-item {
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.message-list-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.message-input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
