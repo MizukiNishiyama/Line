@@ -42,7 +42,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 		CheckOrigin: func(r *http.Request) bool {
-			// オリジンのチェックロジックを実装
+
 			// 必要に応じて、許可するオリジンを指定します
 			// 例: return r.Header.Get("Origin") == "http://localhost:3000"
 			return true // すべてのオリジンを許可する場合
