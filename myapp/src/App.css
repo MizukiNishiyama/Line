@@ -1,38 +1,255 @@
 /* App.css */
+@media (max-width: 600px) {
+  body {
+    font-family: Meiryo;
+    padding: 0px;
+  }
+  .home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* vhはビューポートの高さを表す単位です */
+    background-color: #06c755;
+  }
+  
+  .title, .login, .signin {
+    margin: 10px 0; /* 上下に10pxのマージンを適用 */
+  }
+  
+  .home .title{
+    margin-bottom: 20px;
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+  }
 
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
+  .home button {
+    background-color: white;
+    border-radius: 10px;
+    width: 150px;
+  }
+  
+  .loginscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* vhはビューポートの高さを表す単位です */
+    background-color: #06c755;
+  }
 
-input, button {
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
+  .loginscreen .title{
+    margin:0 0 20px 0;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+  }
 
-button {
-  cursor: pointer;
-}
+  .loginscreen button{
+    border-radius: 10px;
+    background-color: white;
+  }
 
-.room-list-item {
-  padding: 20px;
-  border-bottom: 1px solid #ccc;
-  cursor: pointer;
-}
+  .signinscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* vhはビューポートの高さを表す単位です */
+    background-color: #06c755;
+  }
 
-.message-list-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
+  .signinscreen .title{
+    margin:0 0 20px 0;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+  }
 
-.message-input-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  background: #fff;
-  border-top: 1px solid #ddd;
+  .signinscreen button{
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: white;
+  }
+  .profile_useradd{
+    background-color: #06c755;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 150px;
+  }
+  .profile_useradd .title{
+    margin:0 0 10px 0;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px 0 5px 0;
+    text-align: center;
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .buttons button{
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .rooms {
+    overflow-y: auto;  
+    margin-top: 150px;
+  }
+  
+  .profile{
+    background-color: #06c755;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+  }
+
+  .profile .username_title{
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .profile .profile_username{
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .follow {
+    background-color: #06c755;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .follow .title{
+    margin: 0;
+    padding:20px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .follow input{
+    width: 300px;
+  }
+  
+  .follow .followbuttons button{
+    margin: 10px;
+  }
+
+  input{
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  button {
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    color:black;
+  }
+  
+  .room-list-item {
+    padding: 20px;
+    border-bottom: 3px solid #06c755;
+    cursor: pointer;
+  }
+  
+  .chatroom {
+    background-color: #06c755;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .firstline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height:88px;
+    background-color: white;
+  }
+
+  .message-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin: 90px 0 120px 0;
+  }
+
+  .chatroom .talk{
+    text-align: center;
+    flex-grow: 1;
+    padding:20px;  
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .exitchatroom button{
+    margin: 20px;
+  }
+
+  .message-list-item {
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .message-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: #fff; 
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+  }
+
+  .message-list-item .name{
+    font-size: 18px;
+  }
+
+  .message-list-item .content{
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .message-input-container input{
+    margin: 10px 30px 10px 10px;
+  }
+
+  .message-input-container button{
+    margin:10px;
+    width: 100px;
+  }
+  
 }
 

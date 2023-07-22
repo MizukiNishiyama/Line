@@ -10,5 +10,5 @@ type SearchUserUseCase struct {
 }
 
 func (uc *SearchUserUseCase) Handle(UserName string) ([]model.User, error) {
-	return uc.UserDao.FindByName(UserName)
+	return uc.UserDao.FindById(UserName)
 }

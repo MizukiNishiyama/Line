@@ -2,7 +2,6 @@ package dao
 
 import (
 	"database/sql"
-	"github.com/oklog/ulid/v2"
 	"golang.org/x/crypto/bcrypt"
 	"line/model"
 )
@@ -12,8 +11,8 @@ type UserDao struct {
 }
 
 // 名前で検索
-func (dao *UserDao) FindByName(UserId string) ([]model.User, error) {
-	rows, err := dao.DB.Query("SELECT UserId, UserName, UserPassword FROM user WHERE UserId = ?", UserId)
+func (dao *UserDao) FindById(UserId string) ([]model.User, error) {
+	rows, err := dao.DB.Query("SELECT UserId, UserName FROM user WHERE UserId = ?", UserId)
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +20,7 @@ func (dao *UserDao) FindByName(UserId string) ([]model.User, error) {
 	users := make([]model.User, 0)
 	for rows.Next() {
 		var u model.User
-		if err := rows.Scan(&u.UserId, &u.UserName, &u.UserPassword); err != nil {
+		if err := rows.Scan(&u.UserId, &u.UserName); err != nil {
 			return nil, err
 		}
 		users = append(users, u)
@@ -45,31 +44,6 @@ func (dao *UserDao) Signup(user model.User) error {
 
 	_, err = dao.DB.Exec("INSERT INTO user VALUES (?, ?, ?)", user.UserId, user.UserName, string(hashedPassword))
 	if err != nil {
-		return err
-	}
-
-	// Get all existing users.
-	rows, err := dao.DB.Query("SELECT UserId, UserName FROM user WHERE UserId != ?", user.UserId)
-	if err != nil {
-		return err
-	}
-	defer rows.Close()
-
-	// Create a new room for the new user and each existing user.
-	for rows.Next() {
-		var existingUserID, existingUserName string
-		if err := rows.Scan(&existingUserID, &existingUserName); err != nil {
-			return err
-		}
-		RoomId := ulid.Make().String()
-		_, err := dao.DB.Exec(
-			"INSERT INTO room (RoomId,UserId1, UserId2, UserName1, UserName2) VALUES (?, ?, ?, ?, ?)",
-			RoomId, user.UserId, existingUserID, user.UserName, existingUserName)
-		if err != nil {
-			return err
-		}
-	}
-	if err := rows.Err(); err != nil {
 		return err
 	}
 

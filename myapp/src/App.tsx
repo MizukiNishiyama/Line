@@ -27,13 +27,18 @@ type Room = {
 
 const HomePage: FC = () => {
   return (
-    <div>
+    <div className='home'>
+      <div className='title'>RINE</div>
+      <div className='login'>
       <Link to="/login">
-        <button>Login</button>
+        <button>ログイン</button>
       </Link>
+      </div>
+      <div className='signin'>
       <Link to="/signup">
-        <button>Signup</button>
+        <button>新規登録</button>
       </Link>
+      </div>
     </div>
   );
 };
@@ -62,7 +67,7 @@ const Login: FC = () => {
         history.push(`/rooms?userid=${userId}`);
         console.log(data)
       } else {
-        throw new Error('Failed to login');
+        alert("ログインエラーが発生しました。やり直してください。");
       }
     } catch (err) {
       setError((err as Error).message);
@@ -70,13 +75,20 @@ const Login: FC = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" />
-      <input value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} placeholder="Password" type="password" />
-      <button onClick={login}>Log in</button>
-      <button onClick={() => history.push('/signup')}>Sign up</button>
-      {error && <p>Error: {error}</p>}
+    <div className='loginscreen'>
+      <div className='title'>ログイン</div>
+      <div className='loginname'>
+      <input value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="ユーザーネーム" />
+      </div>
+      <div className='loginpassword'>
+      <input value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} placeholder="パスワード" type="password" />
+      </div>
+      <div>
+      <button onClick={login}>ログイン</button>
+      </div>
+      <div>
+      <button onClick={() => history.push('/signup')}>新規登録</button>
+      </div>
     </div>
   );
 };
@@ -100,7 +112,7 @@ const Signup: FC = () => {
       if (res.ok) {
         history.push('/');
       } else {
-        throw new Error('Failed to sign up');
+        alert("そのユーザー名はもう使われているので、別の名前を設定してください。");
       }
     } catch (err) {
       setError((err as Error).message);
@@ -108,13 +120,73 @@ const Signup: FC = () => {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <input value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" />
-      <input value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} placeholder="Password" type="password" />
-      <button onClick={signup}>Sign up</button>
-      {error && <p>Error: {error}</p>}
+    <div className='signinscreen'>
+      <div className='title'>新規登録</div>
+      <div className='newuser'>
+      <input value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="ユーザーネーム" />
+      </div>
+      <div className='newpassword'>
+      <input value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} placeholder="パスワード" type="password" />
+      </div>
+      <button onClick={signup}>登録</button>
     </div>
+  );
+};
+
+const Profile : FC =() => {
+  const userName = localStorage.getItem('userName');
+  const history = useHistory();
+  return(
+    <div className='profile_main'>
+    
+    <div className="profile">
+      <div className='username_title'>ユーザーネーム</div>
+      <div className='profile_username'>{userName}</div>
+      <div className='exitprofile'>
+        <button onClick={() => history.goBack()}>戻る</button>
+      </div>
+    </div>
+    </div>
+  )
+};
+
+const MakeRoom : FC =() => {
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userName');
+  const [opponent, setOpponent] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  const history = useHistory();
+
+  const follow = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/follow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ UserId:userId, UserName: userName, OpponentUserName: opponent }),
+      });
+
+      if (res.ok) {
+        history.push(`/rooms?userid=${userId}`);
+      } else {
+        alert("ユーザーが見つかりませんでした。やり直してください。");
+      }
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  };
+
+  return (
+    <div className='follow'>
+      <div className='title'>ユーザーをフォロー</div>
+      <input value={opponent} onChange={(e: ChangeEvent<HTMLInputElement>) => setOpponent(e.target.value)} placeholder="ユーザーネームを入力してください" />
+      <div className='followbuttons'>
+      <button onClick={follow}>フォロー</button>
+      <button onClick={() => history.goBack()}>戻る</button>
+      </div>
+    </div>
+    
   );
 };
 
@@ -131,7 +203,7 @@ const RoomList: FC = () => {
       try {
         const res = await fetch(`http://localhost:8000/rooms?userid=${userId}`);
         const data = await res.json();
-        console.log(data)
+        
 
         if (res.ok) {
           setRooms(data);
@@ -151,34 +223,47 @@ const RoomList: FC = () => {
 
 
   return (
-    <div>
-      <h2>Rooms</h2>
-      {rooms.map(room => (
-        <div key={room.RoomId} onClick={() => history.push(`/chat/${room.RoomId}`)} className="room-list-item">
-          {room.UserName1} - {room.UserName2}
-        </div>
-      ))}
-      {error && <p>Error: {error}</p>}
+    <div className='chatlist'>
+      <div className='profile_useradd'>
+        <div className='title'>チャットリスト</div>
+        <div className='buttons'>
+        <Link to="/profile">
+          <button>プロフィール</button>
+        </Link>
+        <Link to="/follow">
+          <button>フォロー</button>
+        </Link>
+        <Link to="/">
+          <button onClick={()=>localStorage.clear()}>ログアウト</button>  
+        </Link> 
+        </div> 
+      </div>
+      <div className='rooms'>
+        {rooms.map(room => (
+          <div key={room.RoomId} onClick={() => history.push(`/chat/${room.RoomId}`)} className="room-list-item">
+            {room.UserName1} と {room.UserName2} のチャット
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-let socket: WebSocket | null = null;
+
 
 const ChatRoom: FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const match = useRouteMatch<{ roomId: string }>('/chat/:roomId');
-
+  const history = useHistory();
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const res = await fetch(`http://localhost:8000/fetchmessage?roomid=${match?.params.roomId}`);
         const data = await res.json();
-        console.log(data);
-
+        console.log(data)
         if (res.ok) {
           setMessages(data);
           console.log("fetchmessage success" )
@@ -193,76 +278,28 @@ const ChatRoom: FC = () => {
     if (match?.params.roomId) {
       fetchMessages();
     }
-
-    try {
-      socket = new WebSocket('ws://localhost:8000/ws');
-    } catch (error) {
-      console.error("Failed to create WebSocket:", error);
-      return;
-    }
-  
-    if(socket){
-      socket.onopen = () => {
-        // WebSocket has connected
-        if (socket) {
-          socket.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            setMessages((prevMessages) => [...prevMessages, message]);
-          };
-        }
-      };
-    }
-  
-    return () => {
-      if (socket && socket.readyState === WebSocket.OPEN) {
-        // Only close the connection if it is open
-        socket.close();
-      }
-      socket = null;
-    };
-
   }, [match?.params.roomId]);
 
-  // const sendMessage = async () => {
-  //   try {
-  //     const userId = localStorage.getItem('userId');
-  //     const userName = localStorage.getItem('userName');
-  //     console.log(userId)
-  //     const res = await fetch('http://localhost:8000/sendmessage', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ MessageContent: newMessage, MessageTime: ` (${new Date().getMonth()+1}/${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()})`, UserId: userId, RoomId: match?.params.roomId, UserName: userName }),
-  //     });
-  //     const data = await res.json();
-
-  //     if (res.ok) {
-  //       setMessages([...messages, data.message]);
-  //       setNewMessage('');
-  //       console.log(data.message)
-  //     } else {
-  //       throw new Error('Failed to send message');
-  //     }
-  //   } catch (err) {
-  //     setError((err as Error).message);
-  //   }
   const sendMessage = async () => {
     try {
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
+      console.log(userId)
+      const res = await fetch('http://localhost:8000/sendmessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ MessageContent: newMessage, MessageTime: ` (${new Date().getMonth()+1}/${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()})`, UserId: userId, RoomId: match?.params.roomId, UserName: userName }),
+      });
+      const data = await res.json();
 
-      if (socket && socket.readyState === WebSocket.OPEN && userId && userName) {
-        socket.send(JSON.stringify({
-          MessageContent: newMessage, 
-          MessageTime: ` (${new Date().getMonth()+1}/${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()})`, 
-          UserId: userId, 
-          RoomId: match?.params.roomId, 
-          UserName: userName 
-        }));
+      if (res.ok) {
+        setMessages([...messages, data]);
         setNewMessage('');
+        console.log(data)
       } else {
-        console.log("WebSocket is not open. Ready state:", socket?.readyState);
+        throw new Error('Failed to send message');
       }
     } catch (err) {
       setError((err as Error).message);
@@ -271,20 +308,28 @@ const ChatRoom: FC = () => {
   
 
   return (
-    <div>
-      <h2>Chat Room</h2>
-      {messages && messages.map(message => (
-    <div key={message.MessageTime} className="message-list-item">
-      {message.MessageContent} {message.UserName} {message.MessageTime}
+    <div className='chatroom'>
+  <div className='firstline'>
+    <div className='talk'>トーク</div>
+    <div className='exitchatroom'>
+      <button onClick={() => history.goBack()}>戻る</button>
     </div>
-    ))}
-
-      <div className="message-input-container">
-        <input value={newMessage} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)} placeholder="New message" />
-        <button onClick={sendMessage}>Send</button>
+  </div>
+  <div className='message-list'>
+    {messages && messages.map(message => (
+      <div key={message.MessageTime} className="message-list-item">
+        <div className='name'>{message.UserName}</div>
+        <div className='content'>{message.MessageContent}</div> 
+        <div className='time'>{message.MessageTime}</div>
       </div>
-      {error && <p>Error: {error}</p>}
-    </div>
+    ))}
+  </div>
+  <div className="message-input-container">
+    <input value={newMessage} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)} placeholder="メッセージを入力" />
+    <button onClick={sendMessage}>送信</button>
+  </div>
+</div>
+
   );
 };
 
@@ -300,6 +345,12 @@ const App: FC = () => {
         </Route>
         <Route path="/rooms">
           <RoomList />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/follow">
+          <MakeRoom />
         </Route>
         <Route path="/chat/:roomId">
           <ChatRoom />

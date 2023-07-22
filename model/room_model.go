@@ -7,3 +7,13 @@ type Room struct {
 	UserName1 string `json:"UserName1"`
 	UserName2 string `json:"UserName2"`
 }
+
+type Follow struct {
+	UserId           string `json:"UserId"`
+	UserName         string `json:"UserName"`
+	OpponentUserName string `json:"OpponentUserName"`
+}
+
+type RoomResForHTTPPost struct {
+	RoomId string `json:"RoomId"`
+}

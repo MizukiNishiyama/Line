@@ -13,7 +13,7 @@ type SearchUserController struct {
 }
 
 func (c *SearchUserController) Handle(w http.ResponseWriter, r *http.Request) {
-	UserName := r.URL.Query().Get("name")
+	UserName := r.URL.Query().Get("id")
 	if UserName == "" {
 		log.Println("fail: name is empty")
 		w.WriteHeader(http.StatusBadRequest)
