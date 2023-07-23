@@ -170,7 +170,7 @@ const MakeRoom : FC =() => {
       if (res.ok) {
         history.push(`/rooms?userid=${userId}`);
       } else {
-        alert("ユーザーが見つかりませんでした。やり直してください。");
+        alert("すでにそのユーザーをフォローしている、もしくはそのユーザーは存在しません。");
       }
     } catch (err) {
       setError((err as Error).message);
@@ -193,6 +193,7 @@ const MakeRoom : FC =() => {
 const RoomList: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const userName = localStorage.getItem('userName');
   const history = useHistory();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -227,9 +228,7 @@ const RoomList: FC = () => {
       <div className='profile_useradd'>
         <div className='title'>チャットリスト</div>
         <div className='buttons'>
-        <Link to="/profile">
-          <button>プロフィール</button>
-        </Link>
+        <div className='username'>{userName}</div>
         <Link to="/follow">
           <button>フォロー</button>
         </Link>

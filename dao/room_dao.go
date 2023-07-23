@@ -48,6 +48,10 @@ func (dao *RoomDao) MakeRoom(follow model.Follow) error {
 		return fmt.Errorf("no user found with username %s", follow.OpponentUserName)
 	}
 	defer rows.Close()
+	//if follow.UserId < OpponentUserId {
+	//
+	//}
+
 	RoomId := ulid.Make().String()
 	_, err = dao.DB.Exec(
 		"INSERT INTO room (RoomId,UserId1, UserId2, UserName1, UserName2) VALUES (?, ?, ?, ?, ?)",

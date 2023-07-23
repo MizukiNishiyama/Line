@@ -56,7 +56,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* vhはビューポートの高さを表す単位です */
+    height: 100vh; 
     background-color: #06c755;
   }
 
@@ -95,11 +95,21 @@
     justify-content: center;
     align-items: center;
   }
+
+  .buttons .username{
+    font-size: 25px;
+    margin:0 10px ;
+    font-weight: bold;
+    width: 120px;
+    text-align: center;
+  }
+
   .buttons button{
     margin: 10px;
     border-radius: 10px;
     font-size: 18px;
     padding: 10px;
+    width: 120px;
   }
 
   .rooms {
@@ -177,7 +187,7 @@
   }
   
   .chatroom {
-    background-color: #06c755;
+    background-color: white;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -188,13 +198,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 2px solid black;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height:88px;
-    background-color: white;
+    background-color: #06c755;
   }
 
   .message-list {
@@ -227,7 +236,7 @@
     left: 0;
     right: 0;
     padding: 20px;
-    background: #fff; 
+    background: #06c755; 
     display: flex;
     flex-direction: row;
     height: 80px;
