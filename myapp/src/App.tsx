@@ -64,7 +64,7 @@ const Login: FC = () => {
         const userId = data.UserId;
         localStorage.setItem('userId', userId);
         localStorage.setItem('userName', username);
-        history.push(`/rooms?userid=${userId}`);
+        history.push(`/rooms`);
         console.log(data)
       } else {
         alert("ログインエラーが発生しました。やり直してください。");
@@ -197,18 +197,36 @@ const RoomList: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [error, setError] = useState<string | null>(null);
   const userName = localStorage.getItem('userName');
+  const userId = localStorage.getItem('userId');
   const history = useHistory();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const userId = queryParams.get('userid');
+  // const userId = queryParams.get('userid');
 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/rooms?userid=${userId}`);
+        // const res = await fetch(`http://localhost:8000/rooms?userid=${userId}`);
+        // const data = await res.json();
+        // console.log(data)
+      //   if (res.ok) {
+      //     setRooms(data);
+      //   } else {
+      //     throw new Error('Failed to fetch rooms');
+      //   }
+      // } catch (err) {
+      //   setRooms([]);
+      //   setError((err as Error).message);
+      // }
+        const res = await fetch(`http://localhost:8000/rooms`,{
+          method:'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ UserId:userId}),
+        });
         const data = await res.json();
-        
-
+        console.log(data)
         if (res.ok) {
           setRooms(data);
         } else {
@@ -220,12 +238,12 @@ const RoomList: FC = () => {
       }
     };
 
-    if (userId) {
+    if (location.pathname === "/rooms") {
       fetchRooms();
     }
 
     
-  }, [userId]);
+  }, [location.pathname]);
 
   
   return (
@@ -288,7 +306,6 @@ const ChatRoom: FC = () => {
     try {
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
-      console.log(userId)
       const res = await fetch('http://localhost:8000/sendmessage', {
         method: 'POST',
         headers: {

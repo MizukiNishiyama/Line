@@ -48,7 +48,7 @@ func (dao *RoomDao) MakeRoom(follow model.Follow) error {
 		return fmt.Errorf("no user found with username %s", follow.OpponentUserName)
 	}
 	defer rows.Close()
-	
+
 	var UserId1, UserId2, UserName1, UserName2 string
 	if follow.UserId < OpponentUserId {
 		UserId1 = follow.UserId

@@ -38,11 +38,12 @@ func (dao *UserDao) Insert(user model.User) error {
 // サインアップ
 func (dao *UserDao) Signup(user model.User) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.UserPassword), bcrypt.DefaultCost)
+	hashedId, err := bcrypt.GenerateFromPassword([]byte(user.UserId), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
 
-	_, err = dao.DB.Exec("INSERT INTO user VALUES (?, ?, ?)", user.UserId, user.UserName, string(hashedPassword))
+	_, err = dao.DB.Exec("INSERT INTO user VALUES (?, ?, ?)", string(hashedId), user.UserName, string(hashedPassword))
 	if err != nil {
 		return err
 	}

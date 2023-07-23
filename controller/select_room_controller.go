@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"io"
 	"line/model"
 	"line/usecase"
 	"log"
@@ -13,12 +14,20 @@ type SelectRoomController struct {
 }
 
 func (c *SelectRoomController) Handle(w http.ResponseWriter, r *http.Request) {
-	UserId := r.URL.Query().Get("userid")
-	if UserId == "" {
-		log.Println("fail: userid is empty")
-		w.WriteHeader(http.StatusBadRequest)
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Printf("fail: io.ReadAll, %v\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	var roomReq model.UserId
+	if err := json.Unmarshal(body, &roomReq); err != nil {
+		log.Printf("fail: json.Unmarshal, %v\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	UserId := roomReq.UserId
 
 	rooms, err := c.SelectRoomUseCase.Handle(UserId)
 	if err != nil {

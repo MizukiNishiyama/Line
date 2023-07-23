@@ -154,7 +154,7 @@ func main() {
 			return
 		}
 		switch r.Method {
-		case http.MethodGet:
+		case http.MethodPost:
 			SelectRoomController.Handle(w, r)
 		default:
 			log.Printf("BadRequest(status code = 400)")
@@ -207,15 +207,15 @@ func initDB() *sql.DB {
 	//mysqlHost := os.Getenv("MYSQL_HOST")
 	//mysqlDatabase := os.Getenv("MYSQL_DATABASE")
 
-	//mysqlUser := "uttc"
-	//mysqlPwd := "ramen102"
-	//mysqlHost := "34.27.193.191:3306"
-	//mysqlDatabase := "hackathon"
+	mysqlUser := "uttc"
+	mysqlPwd := "ramen102"
+	mysqlHost := "35.184.81.138:3306"
+	mysqlDatabase := "line"
 
-	mysqlUser := "test_user"
-	mysqlPwd := "password"
-	mysqlHost := "localhost:3306"
-	mysqlDatabase := "test_database"
+	//mysqlUser := "test_user"
+	//mysqlPwd := "password"
+	//mysqlHost := "localhost:3306"
+	//mysqlDatabase := "test_database"
 
 	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s", mysqlUser, mysqlPwd, mysqlHost, mysqlDatabase)
 

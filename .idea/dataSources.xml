@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/test_database</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Cloud SQL" uuid="9a5a7b34-fef3-49b8-8151-b22f4a756751">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://35.184.81.138:3306/line</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

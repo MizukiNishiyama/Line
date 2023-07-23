@@ -17,3 +17,7 @@ type Follow struct {
 type RoomResForHTTPPost struct {
 	RoomId string `json:"RoomId"`
 }
+
+type UserId struct {
+	UserId string `json:"UserId"`
+}
