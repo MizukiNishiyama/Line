@@ -128,7 +128,10 @@ const Signup: FC = () => {
       <div className='newpassword'>
       <input value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} placeholder="パスワード" type="password" />
       </div>
+      <div className='signinbuttons'>
+      <button onClick={() => history.goBack()}>戻る</button>
       <button onClick={signup}>登録</button>
+      </div>
     </div>
   );
 };
@@ -220,9 +223,11 @@ const RoomList: FC = () => {
     if (userId) {
       fetchRooms();
     }
+
+    
   }, [userId]);
 
-
+  
   return (
     <div className='chatlist'>
       <div className='profile_useradd'>
@@ -240,7 +245,7 @@ const RoomList: FC = () => {
       <div className='rooms'>
         {rooms.map(room => (
           <div key={room.RoomId} onClick={() => history.push(`/chat/${room.RoomId}`)} className="room-list-item">
-            {room.UserName1} と {room.UserName2} のチャット
+            {room.UserName1 == userName ? room.UserName2:room.UserName1}
           </div>
         ))}
       </div>

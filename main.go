@@ -214,7 +214,7 @@ func initDB() *sql.DB {
 
 	mysqlUser := "test_user"
 	mysqlPwd := "password"
-	mysqlHost := "192.168.11.11:3306"
+	mysqlHost := "localhost:3306"
 	mysqlDatabase := "test_database"
 
 	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s", mysqlUser, mysqlPwd, mysqlHost, mysqlDatabase)

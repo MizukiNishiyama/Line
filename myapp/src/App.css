@@ -49,6 +49,7 @@
   .loginscreen button{
     border-radius: 10px;
     background-color: white;
+    width: 100px;
   }
 
   .signinscreen {
@@ -71,7 +72,15 @@
     border-radius: 10px;
     font-size: 20px;
     background-color: white;
+    width: 80px;
+    margin: 10px;
   }
+
+  .signinscreen .signinbuttons{
+    display: flex;
+    flex-direction: row;
+  }
+
   .profile_useradd{
     background-color: #06c755;
     position: fixed;
@@ -115,6 +124,8 @@
   .rooms {
     overflow-y: auto;  
     margin-top: 150px;
+    font-size: 25px;
+    text-align: center;
   }
   
   .profile{
@@ -228,6 +239,8 @@
   .message-list-item {
     padding: 10px;
     overflow-y: auto;
+    overflow-x: hidden;
+    word-wrap: break-word;
   }
 
   .message-input-container {
