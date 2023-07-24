@@ -2,6 +2,41 @@ import React, { useState, useEffect, ChangeEvent, FC } from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory, useRouteMatch, useLocation, Link} from 'react-router-dom';
 import './App.css';
 
+import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SendIcon from '@mui/icons-material/Send';
+
+import { Button } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#fff', // ここで色を指定します
+    },
+    secondary: {
+      main: '#000000',
+    },
+    // 追加の色を指定
+    error: {
+      main: '#f44336',
+    },
+    warning: {
+      main: '#ff9800',
+    },
+    info: {
+      main: '#2196f3',
+    },
+    success: {
+      main: '#4caf50',
+    },
+  },
+});
+
 type User = {
   UserId: string;
   UserName: string;
@@ -181,15 +216,20 @@ const MakeRoom : FC =() => {
   };
 
   return (
-    <div className='follow'>
-      <div className='title'>ユーザーをフォロー</div>
-      <input value={opponent} onChange={(e: ChangeEvent<HTMLInputElement>) => setOpponent(e.target.value)} placeholder="ユーザーネームを入力してください" />
-      <div className='followbuttons'>
-      <button onClick={follow}>フォロー</button>
-      <button onClick={() => history.goBack()}>戻る</button>
+    <div className='followscreen'>
+      <ThemeProvider theme={theme}>
+      <div className='backbutton'>
+      <Button onClick={()=>history.goBack()}><ArrowBackIcon fontSize="large"/></Button>  
       </div>
+      <div className='follow'>
+        <div className='title'>ユーザーをフォロー</div>
+        <input value={opponent} onChange={(e: ChangeEvent<HTMLInputElement>) => setOpponent(e.target.value)} placeholder="ユーザーネームを入力してください" />
+        <div className='followbuttons'>
+        <button onClick={follow}>フォロー</button>
+        </div>
+      </div>
+      </ThemeProvider>
     </div>
-    
   );
 };
 
@@ -201,23 +241,10 @@ const RoomList: FC = () => {
   const history = useHistory();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  // const userId = queryParams.get('userid');
 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        // const res = await fetch(`http://localhost:8000/rooms?userid=${userId}`);
-        // const data = await res.json();
-        // console.log(data)
-      //   if (res.ok) {
-      //     setRooms(data);
-      //   } else {
-      //     throw new Error('Failed to fetch rooms');
-      //   }
-      // } catch (err) {
-      //   setRooms([]);
-      //   setError((err as Error).message);
-      // }
         const res = await fetch(`http://localhost:8000/rooms`,{
           method:'POST',
           headers: {
@@ -251,13 +278,17 @@ const RoomList: FC = () => {
       <div className='profile_useradd'>
         <div className='title'>チャットリスト</div>
         <div className='buttons'>
-        <div className='username'>{userName}</div>
+        {/* <div className='username'>{userName}</div> */}
+        <ThemeProvider theme={theme}>
         <Link to="/follow">
-          <button>フォロー</button>
+          <Button  aria-label="follow">
+            < PersonAddAltIcon color="primary" fontSize="large"/>
+          </Button>
         </Link>
         <Link to="/">
-          <button onClick={()=>localStorage.clear()}>ログアウト</button>  
+          <Button onClick={()=>localStorage.clear()}><LogoutIcon fontSize="large"/></Button>  
         </Link> 
+        </ThemeProvider>
         </div> 
       </div>
       <div className='rooms'>
@@ -329,12 +360,13 @@ const ChatRoom: FC = () => {
   
 
   return (
+    <ThemeProvider theme={theme}>
     <div className='chatroom'>
   <div className='firstline'>
-    <div className='talk'>トーク</div>
-    <div className='exitchatroom'>
-      <button onClick={() => history.goBack()}>戻る</button>
+  <div className='exitchatroom'>
+    <Button onClick={()=>history.goBack()}><ArrowBackIcon fontSize="large"/></Button>  
     </div>
+    
   </div>
   <div className='message-list'>
     {messages && messages.map(message => (
@@ -347,9 +379,10 @@ const ChatRoom: FC = () => {
   </div>
   <div className="message-input-container">
     <input value={newMessage} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)} placeholder="メッセージを入力" />
-    <button onClick={sendMessage}>送信</button>
+    <Button color="secondary" onClick={sendMessage}><SendIcon fontSize="large"/></Button>
   </div>
 </div>
+</ThemeProvider>
 
   );
 };

@@ -152,13 +152,30 @@
     font-weight: bold;
   }
 
+  .followscreen{
+    height: 100vh;
+    background-color: #06c755;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    position: relative;
+  }
+
+  .followscreen .backbutton{
+    background-color: #06c755;
+    padding: 10px;
+    position: absolute; 
+    top: 0; 
+    left: 0;
+  }
+  
   .follow {
     background-color: #06c755;
-    height:100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
   }
 
   .follow .title{
@@ -167,6 +184,7 @@
     color: white;
     font-size: 30px;
     font-weight: bold;
+    
   }
 
   .follow input{
@@ -188,12 +206,12 @@
     margin-bottom: 20px;
     font-size: 18px;
     border-radius: 10px;
-    color:black;
+    color:#000000;
   }
   
   .room-list-item {
     padding: 20px;
-    border-bottom: 3px solid #06c755;
+    border-bottom: 1px solid #06c755;
     cursor: pointer;
   }
   
@@ -252,8 +270,12 @@
     background: #06c755; 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+
     height: 80px;
   }
+
+
 
   .message-list-item .name{
     font-size: 18px;
@@ -265,12 +287,13 @@
   }
 
   .message-input-container input{
-    margin: 10px 30px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    width: 80%;
   }
 
   .message-input-container button{
     margin:10px;
-    width: 100px;
+    width: 10%;
   }
   
 }

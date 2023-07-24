@@ -188,7 +188,7 @@ func main() {
 	closeDBWithSysCall()
 
 	log.Println("Listening...")
-	
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000" // Default port if not specified
@@ -205,15 +205,15 @@ func initDB() *sql.DB {
 	//mysqlHost := os.Getenv("MYSQL_HOST")
 	//mysqlDatabase := os.Getenv("MYSQL_DATABASE")
 
-	mysqlUser := "mizuki"
-	mysqlPwd := "ramen102"
-	mysqlHost := "35.184.81.138:3306"
-	mysqlDatabase := "line"
+	//mysqlUser := "mizuki"
+	//mysqlPwd := "ramen102"
+	//mysqlHost := "35.184.81.138:3306"
+	//mysqlDatabase := "line"
 
-	//mysqlUser := "test_user"
-	//mysqlPwd := "password"
-	//mysqlHost := "localhost:3306"
-	//mysqlDatabase := "test_database"
+	mysqlUser := "test_user"
+	mysqlPwd := "password"
+	mysqlHost := "localhost:3306"
+	mysqlDatabase := "test_database"
 
 	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s", mysqlUser, mysqlPwd, mysqlHost, mysqlDatabase)
 
