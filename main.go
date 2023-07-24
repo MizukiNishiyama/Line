@@ -202,7 +202,7 @@ func main() {
 }
 
 func initDB() *sql.DB {
-	// DB接続のための準備
+	// DB接続のため
 	//mysqlUser := os.Getenv("MYSQL_USER")
 	//mysqlPwd := os.Getenv("MYSQL_PWD")
 	//mysqlHost := os.Getenv("MYSQL_HOST")
