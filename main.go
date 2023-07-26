@@ -210,7 +210,7 @@ func initDB() *sql.DB {
 
 	mysqlUser := "mizuki"
 	mysqlPwd := "ramen102"
-	mysqlHost := "35.184.81.138:3306"
+	mysqlHost := "35.184.81.138"
 	mysqlDatabase := "line"
 
 	//mysqlUser := "test_user"
