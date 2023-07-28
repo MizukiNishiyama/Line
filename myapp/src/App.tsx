@@ -86,7 +86,7 @@ const Login: FC = () => {
 
   const login = async () => {
     try {
-      const res = await fetch('http://localhost:8000/login', {
+      const res = await fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ const Signup: FC = () => {
 
   const signup = async () => {
     try {
-      const res = await fetch('http://localhost:8000/signup', {
+      const res = await fetch('http://localhost:8080/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ const MakeRoom : FC =() => {
 
   const follow = async () => {
     try {
-      const res = await fetch('http://localhost:8000/follow', {
+      const res = await fetch('http://localhost:8080/follow', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ const RoomList: FC = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/rooms`,{
+        const res = await fetch(`http://localhost:8080/rooms`,{
           method:'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -314,7 +314,7 @@ const ChatRoom: FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/fetchmessage?roomid=${match?.params.roomId}`);
+        const res = await fetch(`http://localhost:8080/fetchmessage?roomid=${match?.params.roomId}`);
         const data = await res.json();
         console.log(data)
         if (res.ok) {
@@ -337,7 +337,7 @@ const ChatRoom: FC = () => {
     try {
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
-      const res = await fetch('http://localhost:8000/sendmessage', {
+      const res = await fetch('http://localhost:8080/sendmessage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
