@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="test_database@localhost" uuid="27452b24-588b-42d3-9191-7ec59c50b3d1">
+    <data-source source="LOCAL" name="Cloud SQL " uuid="9a5a7b34-fef3-49b8-8151-b22f4a756751">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/test_database</jdbc-url>
+      <jdbc-url>jdbc:mysql://34.171.37.40:3306/line</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="Cloud SQL" uuid="9a5a7b34-fef3-49b8-8151-b22f4a756751">
+    <data-source source="LOCAL" name="Cloud SQL 2" uuid="f049d274-4891-4d67-b2c6-38fe134418c4">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://35.184.81.138:3306/line</jdbc-url>
+      <jdbc-url>jdbc:mysql://34.171.37.40:3306/line</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

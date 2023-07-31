@@ -208,9 +208,9 @@ func initDB() *sql.DB {
 	//mysqlHost := os.Getenv("MYSQL_HOST")
 	//mysqlDatabase := os.Getenv("MYSQL_DATABASE")
 
-	mysqlUser := "mizuki"
+	mysqlUser := "uttc"
 	mysqlPwd := "ramen102"
-	mysqlHost := "35.184.81.138"
+	mysqlHost := "34.171.37.40"
 	mysqlDatabase := "line"
 
 	//mysqlUser := "test_user"
