@@ -229,6 +229,7 @@ func initDB() *sql.DB {
 		log.Fatalf("fail: _db.Ping, %v\n", err)
 	}
 	return _db
+
 }
 
 func closeDBWithSysCall() {
